@@ -78,37 +78,41 @@ public class Algorithms{
      * NOTE: One or two additional variables are fine.
      * An extra copy of the array is not.
      *
+     * E.g: input(AABBCCDDEEFDDFGERAAADVVVD) => output(ABCDEFGRV)
+     *
      */
     public String removeDuplicated(char[] input)
     {
-	int lastPointer = 1;
-	int i=0;
-	int j=1;
+	int i = 0;
+	int j = 1;
+        String initial = new String(input);
 
 	while (i < input.length)
 	{
-	    while (j < input.length)
+	    while (input[i] != 0 && j < input.length - 1)
 	    {
-		if (input[i] == input[j])
+                if (input[j] == 0 && input[j+1] != 0)
+                {
+                    input[j] = input[j+1];
+                    input[j+1] = 0;
+                }
+
+                if (input[i] == input[j])
 		{
-		    lastPointer = j;
-		    break;
+                    input[j] = input[j+1];
+                    input[j+1] = 0;
 		}
 
 		j++;
 	    }
 
-	    if (lastPointer >= 1)
-	    {
-		input[lastPointer] = 0;
-	    }
-
 	    i++;
+            j = i+1;
 	}
 
-	System.out.println("Remove duplicated: " + new String(input) + ", out: " + (new String(input)).trim());
+	System.out.println("Remove duplicated: " + initial + ", out: " + (new String(input)).trim());
 
-	return (new String(input)).trim();
+        return (new String(input)).trim();
     }
 }
 
